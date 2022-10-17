@@ -4,8 +4,9 @@ Resources:
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      SecurityGroups:
-        - !Ref InstanceSecurityGroup
+      SecurityGroups: sg-08266c53f2f4bcad8
+        #- !Ref InstanceSecurityGroup
+        
       # Change this, as applicable to you      
       KeyName: udacity
       # Change this, as applicable to you
