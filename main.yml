@@ -1,7 +1,6 @@
----
-#main
+
 - name: Exercise #1
   hosts: localhost
 
   roles:
-   - print
+    - print
