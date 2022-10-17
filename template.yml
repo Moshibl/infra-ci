@@ -12,7 +12,6 @@ Resources:
       # You may need to find out what instance types are available in your region - use https://cloud-images.ubuntu.com/locator/ec2/
       ImageId: 'ami-08c40ec9ead489470' 
       InstanceType: t2.micro
-      DependsOn: InstanceSecurityGroup
       Tags:
         - Key: Name
           Value: Udacity
