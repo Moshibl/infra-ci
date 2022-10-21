@@ -23,25 +23,42 @@ jobs:
   #             --query 'Reservations[*].Instances[*].PublicIpAddress' \
   #             --filters "Name=tag:Project,Values=udacity" \
   #             --output text >> inventory.txt
-  configure_infrastructure:
+  # configure_infrastructure:
+  #   docker:
+  #     - image:  cimg/python:3.10
+  #   steps:
+  #     - checkout
+  #     - add_ssh_keys:
+  #         fingerprints: ["8a:d6:28:5f:a4:83:fd:e8:2a:3c:e5:3a:0f:54:34:e7"]
+  #     - run:
+  #         name: Install Ansible
+  #         command: |
+  #           pip install ansible
+  #     - run:
+  #         name: Run Playbook and Configure Server
+  #         command: |
+  #           ansible-playbook -i inventory.txt main-infra.yml
+  smoke_test:
     docker:
-      - image:  cimg/python:3.10
+      - image: alpine:latest
     steps:
-      - checkout
-      - add_ssh_keys:
-          fingerprints: ["8a:d6:28:5f:a4:83:fd:e8:2a:3c:e5:3a:0f:54:34:e7"]
-      - run:
-          name: Install Ansible
+      - run: apk add --update curl
+      - run: 
+          name: smoke test
           command: |
-            pip install ansible
-      - run:
-          name: Run Playbook and Configure Server
-          command: |
-            ansible-playbook -i inventory.txt main-infra.yml
+            URL="https://blog.udacity.com/"
+            if curl -s --head ${URL}
+            then
+              return 0
+            else
+              return 1
+            fi
+
 workflows:
   my_workflow:
       jobs:
         # - create_infrastructure
-        - configure_infrastructure
+        # - configure_infrastructure
             # requires:
             #   - create_infrastructure
+        - smoke_test
