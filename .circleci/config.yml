@@ -7,7 +7,7 @@ orbs:
 # Define the jobs we want to run for this project
 commands:
 
-  destroy_environment
+  destroy_environment:
     steps:
       - run:
           name: Destroy Environment
